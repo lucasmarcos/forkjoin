@@ -1,8 +1,8 @@
 const example = `
   VAR_C = 2;
 
-  FORK ROT_B;
   A;
+  FORK ROT_B;
   JOIN VAR_C, ROT_C, QUIT;
 
   ROT_B:
@@ -12,6 +12,10 @@ const example = `
   ROT_C:
     C;
     QUIT;
+`;
+
+const example_2 = `
+
 `;
 
 const lex = str => {
@@ -163,6 +167,19 @@ const execute = ast => {
   return env;
 };
 
+const dot = code => {
+	for (let i in code.code) {
+		for (let j in code.code[i]) {
+			console.log(code.code[i][j]);
+		}
+	}
+
+	let res = "dirgraph {\n";
+	res += "}";
+
+	return res;
+};
+
 const toks = lex(example);
 // console.log(toks);
 
@@ -171,3 +188,6 @@ const ast = parse(toks);
 
 const result = execute(ast);
 console.log(result);
+
+const graph = dot(result);
+console.log(graph);
