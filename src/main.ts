@@ -181,10 +181,10 @@ const dot = code => {
 };
 
 const toks = lex(example);
-// console.log(toks);
+console.log(toks);
 
 const ast = parse(toks);
-// console.log(ast);
+console.log(ast);
 
 const result = execute(ast);
 console.log(result);
