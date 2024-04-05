@@ -18,7 +18,7 @@ const example_2 = `
 
 `;
 
-const lex = str => {
+const lex = (str) => {
   let lexemes = [];
 
   let i = 0;
@@ -37,18 +37,18 @@ const lex = str => {
       i++;
     } else if (str[i].match(/[a-zA-Z_]/)) {
       let d = "";
-      while(str[i].match(/[a-zA-Z0-9_]/)) {
+      while (str[i].match(/[a-zA-Z0-9_]/)) {
         d += str[i];
         i++;
       }
-      lexemes.push([ "SYM", d]);
+      lexemes.push(["SYM", d]);
     } else if (str[i].match(/\d/)) {
       let d = "";
-      while(str[i].match(/\d/)) {
+      while (str[i].match(/\d/)) {
         d += str[i];
         i++;
       }
-      lexemes.push([ "DIG", d ]);
+      lexemes.push(["DIG", d]);
     } else if (str[i] === " ") {
       i++;
     } else if (str[i] === "\n") {
@@ -65,7 +65,7 @@ const lex = str => {
   return lexemes;
 };
 
-const parse = tks => {
+const parse = (tks) => {
   let sttmts = [];
 
   let i = 0;
@@ -80,7 +80,7 @@ const parse = tks => {
     }
   };
 
-  const consume = tok => {
+  const consume = (tok) => {
     if (Array.isArray(tks[i])) {
       if (tks[i][0] === tok) {
         return tks[i++][1];
@@ -108,7 +108,7 @@ const parse = tks => {
         const c = consume("SYM");
         consume("SEMI");
 
-        sttmts.push([ "JOIN", a, b, c ]);
+        sttmts.push(["JOIN", a, b, c]);
       } else if (tks[i][1] === "FORK") {
         consume("SYM");
 
@@ -139,7 +139,7 @@ const parse = tks => {
   return sttmts;
 };
 
-const execute = ast => {
+const execute = (ast) => {
   let env = { vars: {}, code: { main: [] }, joins: {} };
   let cur = "main";
 
@@ -167,17 +167,17 @@ const execute = ast => {
   return env;
 };
 
-const dot = code => {
-	for (let i in code.code) {
-		for (let j in code.code[i]) {
-			console.log(code.code[i][j]);
-		}
-	}
+const dot = (code) => {
+  for (let i in code.code) {
+    for (let j in code.code[i]) {
+      console.log(code.code[i][j]);
+    }
+  }
 
-	let res = "dirgraph {\n";
-	res += "}";
+  let res = "dirgraph {\n";
+  res += "}";
 
-	return res;
+  return res;
 };
 
 const toks = lex(example);
